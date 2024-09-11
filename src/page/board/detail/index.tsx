@@ -46,32 +46,40 @@ const BoardDetailPage = () => {
     );
 
   return (
-    <div>
-      <Link to="/boards">목록으로</Link>
-      <div>
-        this is BoardDetail
-        <Input
-          label="제목"
-          name="title"
-          disabled={!editMode}
-          value={data.title}
-          onChange={onChange}
-        />
-        <Textarea
-          label="내용"
-          name="content"
-          disabled={!editMode}
-          value={data.content}
-          onChange={onChange}
-        />
-        <div className={clsx(editMode && "hidden")}>
-          <Button onClick={() => setEditMode(!editMode)}>수정</Button>
+    <div className="space-y-5">
+      <div className="flex flex-col gap-5 mt-10">
+        <div className="space-y-5 h-[300px]">
+          <Input
+            name="title"
+            disabled={!editMode}
+            value={data.title}
+            onChange={onChange}
+            className="text-xl font-bold"
+          />
+          <Textarea
+            rows={10}
+            name="content"
+            disabled={!editMode}
+            value={data.content}
+            onChange={onChange}
+          />
+        </div>
+        <div className={clsx("flex justify-end gap-2", editMode && "hidden")}>
+          <Button onClick={() => setEditMode(!editMode)} primary={false}>
+            수정
+          </Button>
           <Button onClick={onDelete}>삭제</Button>
         </div>
-        <div className={clsx(!editMode && "hidden")}>
+        <div className={clsx("self-end", !editMode && "hidden")}>
           <Button onClick={onEdit}>완료</Button>
         </div>
       </div>
+      <Link
+        to="/boards"
+        className="block text-gray-800 text-center hover:underline"
+      >
+        목록으로
+      </Link>
     </div>
   );
 };
