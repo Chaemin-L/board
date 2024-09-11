@@ -29,7 +29,7 @@ const BoardListPage = () => {
   };
 
   return (
-    <div className="w-[500px] m-auto space-y-5">
+    <div className=" space-y-10">
       <h1 className="text-lg font-bold">등록폼</h1>
       <Form onSubmit={onSubmit} />
       <ListView listData={listData} />
