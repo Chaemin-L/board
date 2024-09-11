@@ -1,4 +1,4 @@
-import { SyntheticEvent, useEffect, useRef, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import ListView from "../../../component/board/ListView";
 import Form from "../../../component/board/Form";
 import { lcStorage } from "../../../lib/lcStorage";

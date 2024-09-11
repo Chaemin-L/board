@@ -1,8 +1,7 @@
-import { HTMLAttributes } from "react";
+import { TextareaHTMLAttributes } from "react";
 
-interface Props extends HTMLAttributes<HTMLTextAreaElement> {
+interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
-  name: string;
 }
 const Textarea = ({ label, ...props }: Props) => {
   return (
