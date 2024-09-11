@@ -1,6 +1,7 @@
-import { SyntheticEvent, useRef, useState } from "react";
+import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import ListView from "../../../component/board/ListView";
 import Form from "../../../component/board/Form";
+import { lcStorage } from "../../../lib/lcStorage";
 
 export interface BoardType {
   id: number;
@@ -12,6 +13,13 @@ const BoardListPage = () => {
   const [listData, setListData] = useState<BoardType[]>([]);
   const [idx, setIdx] = useState<number>(0);
 
+  useEffect(() => {
+    if (!lcStorage.isNull("boards")) {
+      const data = lcStorage.get("boards");
+      setListData(data);
+    }
+  }, []);
+
   const onSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
@@ -20,10 +28,12 @@ const BoardListPage = () => {
     };
     const { title, content } = target;
     if (title.value && content.value) {
-      setListData((prev: BoardType[]) => [
-        ...prev,
+      const newListData = [
+        ...listData,
         { id: idx, title: title.value, content: content.value },
-      ]);
+      ];
+      setListData(newListData);
+      lcStorage.set("boards", newListData);
       setIdx(idx + 1);
     }
   };
