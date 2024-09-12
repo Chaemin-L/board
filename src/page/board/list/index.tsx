@@ -11,12 +11,17 @@ export interface BoardType {
 
 const BoardListPage = () => {
   const [listData, setListData] = useState<BoardType[]>([]);
-  const [idx, setIdx] = useState<number>(0);
+  const [currentIdx, setCurrentIdx] = useState<number>(0);
 
   useEffect(() => {
     if (!lcStorage.isNull("boards")) {
       const data = lcStorage.get("boards");
+      const currentIdx = lcStorage.get("currentIdx");
       setListData(data);
+      setCurrentIdx(currentIdx);
+    } else {
+      lcStorage.set("currentIdx", 0);
+      setCurrentIdx(0);
     }
   }, []);
 
@@ -30,11 +35,12 @@ const BoardListPage = () => {
     if (title.value && content.value) {
       const newListData = [
         ...listData,
-        { id: idx, title: title.value, content: content.value },
+        { id: currentIdx, title: title.value, content: content.value },
       ];
       setListData(newListData);
+      setCurrentIdx(currentIdx + 1);
       lcStorage.set("boards", newListData);
-      setIdx(idx + 1);
+      lcStorage.set("currentIdx", currentIdx + 1);
     }
   };
 

@@ -4,7 +4,8 @@ export const lcStorage = {
     if (localStorage.getItem(key))
       return JSON.parse(localStorage.getItem(key) as string);
   },
-  set: (key: string, value: object) => {
+
+  set: (key: string, value: unknown) => {
     localStorage.setItem(key, JSON.stringify(value));
   },
 };
